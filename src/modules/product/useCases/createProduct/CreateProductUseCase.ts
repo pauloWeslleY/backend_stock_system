@@ -6,14 +6,14 @@ import { ServerError } from "../../../../error/ServerError";
 
 export class CreateProductUseCase {
    async createProducts({title, price, description, imageUrl}: ICreateProduct): Promise<Product> {
-      // TODO: Validando e verificando se o produto já existe
+      //TODO: Validando e verificando se o produto já existe no banco
       const productAlreadyExisting = await prisma.product.findUnique({
          where: {
             title,
          }
       });
 
-      // TODO: Fazendo a validação de o produto já é existente
+      //TODO: Validação se o produto já é existente no banco
       if (productAlreadyExisting) {
          throw new ServerError("Existing product!");
       }

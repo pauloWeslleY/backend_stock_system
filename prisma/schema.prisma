@@ -28,8 +28,18 @@ model Product {
    description String? @unique
    imageUrl    String?
 
-   created_at DateTime @default(now())
-   updated_at DateTime @updatedAt
+   created_at DateTime     @default(now())
+   updated_at DateTime     @updatedAt
+   categories Categories[] @relation("category")
 
    @@map("products")
+}
+
+model Categories {
+   name       String  @unique
+   category   Product @relation("category", fields: [categoryId], references: [id])
+   categoryId String
+
+   @@id([categoryId])
+   @@map("category")
 }
