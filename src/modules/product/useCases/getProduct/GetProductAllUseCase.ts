@@ -6,6 +6,10 @@ export class GetProductAllUseCase {
       const productsAll = await prisma.product.findMany({
          orderBy: {
             title: "asc"
+         },
+         include: {
+            imageUrl: true,
+            category: true
          }
       });
 

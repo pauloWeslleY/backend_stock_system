@@ -11,8 +11,9 @@ datasource db {
 }
 
 model User {
-   id         String   @id @default(uuid())
+   id         String   @id @default(cuid())
    email      String   @unique
+   password   Int      @unique
    name       String
    created_at DateTime @default(now())
    updated_at DateTime @updatedAt
@@ -20,13 +21,38 @@ model User {
    @@map("users")
 }
 
+model Categories {
+   id       String    @id @default(cuid())
+   name     String    @unique
+   products Product[]
+
+   @@map("category")
+}
+
 model Product {
-   id          String   @id @default(uuid())
+   id          String   @id @default(cuid())
    title       String   @unique
-   price       Int
+   price       Float
    description String?  @unique
-   created_at  DateTime @default(now())
-   updated_at  DateTime @updatedAt
+   imageUrl    Images[]
+
+   quantity   Int
+   created_at DateTime @default(now())
+   updated_at DateTime @updatedAt
+
+   category_id String
+   category    Categories @relation(fields: [category_id], references: [id])
 
    @@map("products")
+}
+
+model Images {
+   id         String @id @default(cuid())
+   product_id String
+   image_url  String
+
+   product Product @relation(fields: [product_id], references: [id])
+
+   @@unique([product_id, image_url])
+   @@map("images")
 }

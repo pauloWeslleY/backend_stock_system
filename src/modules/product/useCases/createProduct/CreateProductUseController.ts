@@ -2,16 +2,19 @@ import { Request, Response } from "express";
 import { CreateProductUseCase } from "./CreateProductUseCase";
 
 export class CreateProductUseController {
-   async handleSendCreate(req: Request, res: Response) {
-      const { title, price, description } = req.body;
+   async handleSendCreateProduct(request: Request, response: Response) {
+      // TODO: Enviando Produtos
+      const { title, price, description, imageUrl, category_id, quantity } = request.body;
       const createProductUseCase = new CreateProductUseCase();
-      const data_result = await createProductUseCase.createProducts({
+      const data = await createProductUseCase.createProducts({
          title,
          price,
-         description
+         description,
+         imageUrl,
+         category_id,
+         quantity
       });
 
-      return res.status(201).json(data_result);
-
+      return response.status(201).json(data);
    }
 }
