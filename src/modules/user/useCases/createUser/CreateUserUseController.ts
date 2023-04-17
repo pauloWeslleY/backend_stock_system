@@ -3,6 +3,7 @@ import { CreateUserUseCase } from "./CreateUserUseCase";
 
 export class CreateUserUseController {
    async handleSendCreateUser(request: Request, response: Response) {
+      // TODO: Enviando novo usuário
       const { name, email, password } = request.body;
       const createProductUseCase = new CreateUserUseCase();
       const data_result = await createProductUseCase.executeCreationNewUser({

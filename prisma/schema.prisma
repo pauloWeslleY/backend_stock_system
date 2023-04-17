@@ -21,25 +21,38 @@ model User {
    @@map("users")
 }
 
-model Product {
-   id          String  @id @default(cuid())
-   title       String  @unique
-   price       Int
-   description String? @unique
-   imageUrl    String?
+model Categories {
+   id       String    @id @default(cuid())
+   name     String    @unique
+   products Product[]
 
-   created_at DateTime     @default(now())
-   updated_at DateTime     @updatedAt
-   categories Categories[] @relation("category")
+   @@map("category")
+}
+
+model Product {
+   id          String   @id @default(cuid())
+   title       String   @unique
+   price       Float
+   description String?  @unique
+   imageUrl    Images[]
+
+   quantity   Int
+   created_at DateTime @default(now())
+   updated_at DateTime @updatedAt
+
+   category_id String
+   category    Categories @relation(fields: [category_id], references: [id])
 
    @@map("products")
 }
 
-model Categories {
-   name       String  @unique
-   category   Product @relation("category", fields: [categoryId], references: [id])
-   categoryId String
+model Images {
+   id         String @id @default(cuid())
+   product_id String
+   image_url  String
 
-   @@id([categoryId])
-   @@map("category")
+   product Product @relation(fields: [product_id], references: [id])
+
+   @@unique([product_id, image_url])
+   @@map("images")
 }
