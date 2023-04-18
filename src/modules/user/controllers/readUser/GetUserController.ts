@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { GetUserUseCase } from "./getUserUserCase";
+import { GetUserUseCase } from "../../useCases/readUser/getUserUserCase";
 
-export class GetUserUseController {
+export class GetUserController {
    async handleGetUsers(request: Request, response: Response){
       const getUserUseCase = new GetUserUseCase();
       const result = await getUserUseCase.getUser();

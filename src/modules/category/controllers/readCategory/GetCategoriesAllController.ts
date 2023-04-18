@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { GetCategoriesAllUseCase } from './GetCategoriesAllUseCase';
+import { GetCategoriesAllUseCase } from '../../useCases/readCategories/GetCategoriesAllUseCase';
 
 export class GetCategoriesAllController {
    async handleGetCategoriesAll(request: Request, response: Response) {

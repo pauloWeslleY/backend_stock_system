@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { CreateProductUseCase } from "./CreateProductUseCase";
+import { CreateProductUseCase } from "../../useCases/createProduct/CreateProductUseCase";
 
-export class CreateProductUseController {
+export class CreateProductController {
    async handleSendCreateProduct(request: Request, response: Response) {
       // TODO: Enviando Produtos
       const { title, price, description, imageUrl, category_id, quantity } = request.body;

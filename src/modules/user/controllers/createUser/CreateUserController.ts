@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { CreateUserUseCase } from "./CreateUserUseCase";
+import { CreateUserUseCase } from "../../useCases/createUser/CreateUserUseCase";
 
-export class CreateUserUseController {
+export class CreateUserController {
    async handleSendCreateUser(request: Request, response: Response) {
       // TODO: Enviando novo usuário
       const { name, email, password } = request.body;
