@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
-import { DeleteProductUseCase } from "../../useCases/deleteProduct/DeleteProductUseCase";
+import { DeleteProductUseCase } from "../useCases/DeleteProductUseCase";
 
 export class DeleteProductController {
    async handleDeleteProduct(request: Request, response: Response) {
+      /*
+         NOTE: Deletando produto no db
+      */
       try {
          const { id } = request.params;
          const deleteProductUseCase = new DeleteProductUseCase();
@@ -13,11 +16,9 @@ export class DeleteProductController {
             delProduct
          });
 
-         console.log("I AM HERE ==> ", id);
       } catch (err) {
-         console.log("COME HERE ==> ", err);
          response.status(500).json({
-            message: "Could not delete this product",
+            message: "Could not delete this product!",
          });
       }
    }

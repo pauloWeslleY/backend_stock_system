@@ -1,5 +1,5 @@
-import { ServerError } from "../../../../error/ServerError";
-import { prisma } from "../../../../prisma/client";
+import { ServerError } from "../../../error/ServerError";
+import { prisma } from "../../../prisma/client";
 
 export class DeleteProductUseCase {
    async deleteProduct({ id }: { id: string }) {
@@ -12,7 +12,7 @@ export class DeleteProductUseCase {
 
          return deletedProduct;
       } catch (err) {
-         throw new ServerError("Product is not deleted!");
+         throw new ServerError("Failed to delete product!");
       }
    }
 }

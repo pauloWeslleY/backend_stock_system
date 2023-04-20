@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CreateCategoryUseCase } from '../../useCases/createCategory/CreateCategoryUseCase';
+import { CreateCategoryUseCase } from '../useCases/CreateCategoryUseCase';
 
 export class CreateCategoryController {
    async handleSendCreateCategory(request: Request, response: Response){

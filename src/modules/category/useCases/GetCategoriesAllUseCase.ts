@@ -1,5 +1,5 @@
 import { Categories } from "@prisma/client";
-import { prisma } from "../../../../prisma/client";
+import { prisma } from "../../../prisma/client";
 
 export class GetCategoriesAllUseCase {
    async getCategoriesAll(): Promise<Categories[]> {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetUserUseCase } from "../../useCases/readUser/getUserUserCase";
+import { GetUserUseCase } from "../useCases/getUserUserCase";
 
 export class GetUserController {
    async handleGetUsers(request: Request, response: Response){

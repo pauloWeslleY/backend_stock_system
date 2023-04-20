@@ -1,7 +1,7 @@
 import { Product } from "@prisma/client";
-import { prisma } from "../../../../prisma/client";
-import { ICreateProduct } from "../../interfaces/ICreateProduct";
-import { ServerError } from "../../../../error/ServerError";
+import { prisma } from "../../../prisma/client";
+import { ICreateProduct } from "../interfaces/ICreateProduct";
+import { ServerError } from "../../../error/ServerError";
 
 export class CreateProductUseCase {
    async createProducts({ title, price, description, quantity, category_id, imageUrl, }: ICreateProduct): Promise<Product> {

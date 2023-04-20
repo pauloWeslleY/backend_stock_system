@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { GetProductAllController } from '../modules/product/controllers/readProduct/GetProductAllController';
-import { CreateProductController } from "../modules/product/controllers/createProduct/CreateProductController";
-import { DeleteProductController } from "../modules/product/controllers/deleteProduct/DeleteProductController";
+import { GetProductAllController } from '../modules/product/controllers/GetProductAllController';
+import { CreateProductController } from "../modules/product/controllers/CreateProductController";
+import { DeleteProductController } from "../modules/product/controllers/DeleteProductController";
 
 const productRoutes = Router();
 const createProductController = new CreateProductController();

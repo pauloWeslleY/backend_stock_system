@@ -1,8 +1,8 @@
 
 import { User } from "@prisma/client";
-import { prisma } from "../../../../prisma/client";
-import { ICreateUser } from "../../interfaces/ICreateUser";
-import { ServerError } from "../../../../error/ServerError";
+import { prisma } from "../../../prisma/client";
+import { ICreateUser } from "../interfaces/ICreateUser";
+import { ServerError } from "../../../error/ServerError";
 
 
 export class CreateUserUseCase {
