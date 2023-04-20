@@ -1,9 +1,10 @@
+import { Categories } from "@prisma/client";
 import { ServerError } from "../../../error/ServerError";
 import { prisma } from "../../../prisma/client";
 import { ICreateCategory } from "../interfaces/ICreateCategory";
 
-export class CreateCategoryUseCase {
-   async createCategory({ name }: ICreateCategory) {
+export class CategoriesUseCase {
+   async executeCreateCategory({ name }: ICreateCategory) {
       // NOTE: verificando se a categoria já existe
       const categoryAlreadyExisting = await prisma.categories.findFirst({
          where: {
@@ -22,12 +23,40 @@ export class CreateCategoryUseCase {
                name,
             }
          });
-
          console.log(`Categoria criada com sucesso: => ${category.name}`);
 
          return category;
       } catch (err) {
          throw new ServerError("Erro ao criar categoria!");
       }
+   }
+
+   // TODO: Deletando categorias
+   async executeDeleteCategory({id}: {id: string}) {
+      try {
+         const deletedCategory = await prisma.categories.delete({
+            where: {
+               id,
+            }
+         });
+
+         return deletedCategory;
+      } catch (err) {
+         throw new ServerError("Failed to delete category!");
+      }
+   }
+
+   // TODO: Consultando categorias
+   async executeReadCategories(): Promise<Categories[]> {
+      const category = await prisma.categories.findMany({
+         orderBy: {
+            name: "asc"
+         },
+         include: {
+            products: true
+         }
+      });
+
+      return category;
    }
 }

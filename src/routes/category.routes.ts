@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { CreateCategoryController } from "../modules/category/controllers/CreateCategoryController";
-import { GetCategoriesAllController } from "../modules/category/controllers/GetCategoriesAllController";
-
-const createCategoryController = new CreateCategoryController();
-const getCategoriesAllController = new GetCategoriesAllController();
+import { CategoryController } from "../modules/category/controllers/CategoriesController";
 
 const categoryRoutes = Router();
-categoryRoutes.post("/", createCategoryController.handleSendCreateCategory);
-categoryRoutes.get("/", getCategoriesAllController.handleGetCategoriesAll)
+const categoryController = new CategoryController();
+
+categoryRoutes.post("/", categoryController.handleCreateCategory);
+categoryRoutes.get("/", categoryController.handleReadCategories);
+categoryRoutes.delete("/:id", categoryController.handleDeleteCategory);
+
 export { categoryRoutes };
