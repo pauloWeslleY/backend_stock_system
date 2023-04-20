@@ -1,6 +1,6 @@
-import { ServerError } from "../../../../error/ServerError";
-import { prisma } from "../../../../prisma/client";
-import { ICreateCategory } from "../../interfaces/ICreateCategory";
+import { ServerError } from "../../../error/ServerError";
+import { prisma } from "../../../prisma/client";
+import { ICreateCategory } from "../interfaces/ICreateCategory";
 
 export class CreateCategoryUseCase {
    async createCategory({ name }: ICreateCategory) {

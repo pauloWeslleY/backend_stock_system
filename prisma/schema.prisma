@@ -41,7 +41,7 @@ model Product {
    updated_at DateTime @updatedAt
 
    category_id String
-   category    Categories @relation(fields: [category_id], references: [id])
+   category    Categories? @relation(fields: [category_id], references: [id], onDelete: Cascade)
 
    @@map("products")
 }
@@ -51,7 +51,7 @@ model Images {
    product_id String
    image_url  String
 
-   product Product @relation(fields: [product_id], references: [id])
+   product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
    @@unique([product_id, image_url])
    @@map("images")

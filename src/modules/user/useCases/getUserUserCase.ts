@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { prisma } from "../../../../prisma/client";
+import { prisma } from "../../../prisma/client";
 
 export class GetUserUseCase {
    async getUser(): Promise<User[]> {
