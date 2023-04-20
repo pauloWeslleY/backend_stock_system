@@ -2,7 +2,9 @@ import { Product } from "@prisma/client";
 import { prisma } from "../../../prisma/client";
 import { ICreateProduct } from "../interfaces/ICreateProduct";
 import { ServerError } from "../../../error/ServerError";
+import dayjs from "dayjs";
 
+const today = dayjs().startOf("day").toDate();
 export class ProductUseCase {
    async executeCreateProducts({
       title,
@@ -39,6 +41,7 @@ export class ProductUseCase {
             },
             category_id,
             quantity,
+            created_at: today
          },
          include: {
             imageUrl: true,

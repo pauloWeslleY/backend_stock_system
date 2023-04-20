@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ProductUseCase } from "../useCases/ProductUseCase";
+import { z } from "zod";
 
 const productUseCase = new ProductUseCase();
 
@@ -8,14 +9,23 @@ export class ProductController {
       TODO: Fazendo requisição e enviando produtos pro db
    */
    async handleCreateProduct(request: Request, response: Response) {
-      const { title, price, description, imageUrl, category_id, quantity } = request.body;
+      const createProductBody = z.object({
+         title: z.string(),
+         price: z.number(),
+         description: z.string(),
+         imageUrl: z.array(z.string()),
+         category_id: z.string(),
+         quantity: z.number(),
+      });
+
+      const { title, price, description, imageUrl, category_id, quantity } = createProductBody.parse(request.body);
       const data = await productUseCase.executeCreateProducts({
          title,
          price,
          description,
          imageUrl,
          category_id,
-         quantity
+         quantity,
       });
 
       return response.status(201).json(data);
