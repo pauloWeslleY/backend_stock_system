@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { GetUserController } from "../modules/user/controllers/GetUserController";
-import { CreateUserController } from "../modules/user/controllers/CreateUserController";
+import { UserController } from "../modules/user/controllers/UserController";
 
 const userRoutes = Router();
-const createUserController = new CreateUserController();
-const getUserController = new GetUserController();
+const userController = new UserController();
+
 // TODO: Routes
-userRoutes.post("/", createUserController.handleSendCreateUser);
-userRoutes.get("/", getUserController.handleGetUsers);
+userRoutes.post("/", userController.handleCreateUser);
+userRoutes.get("/", userController.handleReadUsers);
+userRoutes.delete("/:id", userController.handleDeleteUser);
 
 export { userRoutes };

@@ -1,16 +1,12 @@
 import { Router } from "express";
-import { GetProductAllController } from '../modules/product/controllers/GetProductAllController';
-import { CreateProductController } from "../modules/product/controllers/CreateProductController";
-import { DeleteProductController } from "../modules/product/controllers/DeleteProductController";
+import { ProductController } from "../modules/product/controllers/ProductController";
 
 const productRoutes = Router();
-const createProductController = new CreateProductController();
-const getProductAllController = new GetProductAllController();
-const deleteProductController = new DeleteProductController();
+const productController = new ProductController();
 
 // TODO: Routes
-productRoutes.post("/", createProductController.handleSendCreateProduct);
-productRoutes.get("/", getProductAllController.handleGetProduct);
-productRoutes.delete("/:id", deleteProductController.handleDeleteProduct);
+productRoutes.post("/", productController.handleCreateProduct);
+productRoutes.get("/", productController.handleReadProduct);
+productRoutes.delete("/:id", productController.handleDeleteProduct);
 
 export { productRoutes };
