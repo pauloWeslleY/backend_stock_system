@@ -1,12 +1,17 @@
 import { Request, Response } from 'express';
 import { CategoriesUseCase } from '../useCases/CategoriesUseCase';
+import { z } from "zod";
 
 const categoriesUseCase = new CategoriesUseCase();
 
 export class CategoryController {
    // TODO: Fazendo requisição e enviando categorias pro db
-   async handleCreateCategory(request: Request, response: Response){
-      const { name } = request.body
+   async handleCreateCategory(request: Request, response: Response) {
+      const createCategoryBody = z.object({
+         name: z.string(),
+      });
+
+      const { name } = createCategoryBody.parse(request.body);
       const data = await categoriesUseCase.executeCreateCategory({
          name
       });

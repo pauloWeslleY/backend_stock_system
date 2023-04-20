@@ -1,8 +1,11 @@
+import dayjs from "dayjs";
 import { prisma } from "../src/prisma/client";
 
 async function main() {
    await prisma.product.deleteMany();
    await prisma.categories.deleteMany();
+
+   const today = dayjs().startOf("day").toDate();
 
    const category = await prisma.categories.create({
       data: {
@@ -10,30 +13,29 @@ async function main() {
       }
    });
 
-   await Promise.all([
-      prisma.product.create({
-         data: {
-            id: "clgkcxt9g0001yfaj7ltjb4i5",
-            title: "Orchids Vandas",
-            price: 120.0,
-            description: "Product Orchids - Vandas",
-            quantity: 20,
-            imageUrl: {
-               create: [
-                  {
-                     image_url: "https://orquidario.vercel.app/image/orchids/orquidea1.jpg",
-                  },
-                  {
-                     image_url: "https://orquidario.vercel.app/image/orchids/orquidea01.jpg",
-                  },
-               ],
-            },
-            category_id: category.id,
-            created_at: new Date("2023-01-01T03:00:00.000"),
+   const product = await prisma.product.create({
+      data: {
+         id: "clgkcxt9g0001yfaj7ltjb4i5",
+         title: "Orchids Vandas",
+         price: 120.0,
+         description: "Product Orchids - Vandas",
+         quantity: 20,
+         imageUrl: {
+            create: [
+               {
+                  image_url: "https://orquidario.vercel.app/image/orchids/orquidea1.jpg",
+               },
+               {
+                  image_url: "https://orquidario.vercel.app/image/orchids/orquidea01.jpg",
+               },
+            ],
          },
-      })
-   ])
+         category_id: category.id,
+         created_at: today
+      },
+   });
 
+   console.log("Product => ", product);
    console.log("Category =>", category);
 }
 

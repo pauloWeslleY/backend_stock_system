@@ -1,12 +1,19 @@
 import { Request, Response } from "express";
 import { UsersUseCase } from "../useCases/UsersUseCase";
+import { z } from "zod";
 
 const usersUseCase = new UsersUseCase();
 
 export class UserController {
+   // TODO: Enviando novo usuário
    async handleCreateUser(request: Request, response: Response) {
-      // TODO: Enviando novo usuário
-      const { name, email, password } = request.body;
+      const createUserBody = z.object({
+         name: z.string(),
+         email: z.string(),
+         password: z.number(),
+      });
+
+      const { name, email, password } = createUserBody.parse(request.body);
       const data_result = await usersUseCase.executeCreationUser({
          name,
          email,
