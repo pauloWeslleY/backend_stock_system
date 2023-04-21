@@ -79,7 +79,6 @@ export class ProductController {
             updateProduct
          });
       } catch (error) {
-         console.log("ERROR IS HERE ==> ", error);
          response.status(500).json({
             message: "Could not update this product!",
          });
