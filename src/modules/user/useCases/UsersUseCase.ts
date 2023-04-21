@@ -5,7 +5,7 @@ import { ICreateUser } from "../interfaces/ICreateUser";
 import { ServerError } from "../../../error/ServerError";
 
 export class UsersUseCase {
-   async executeCreationUser({name, email, password}: ICreateUser): Promise<User> {
+   async executeCreationUser({ name, email, password }: ICreateUser): Promise<User> {
       // TODO: Validando usuário existente!
       const userAlreadyExisting = await prisma.user.findUnique({
          where: {
@@ -17,16 +17,42 @@ export class UsersUseCase {
          throw new ServerError("Existing User!");
       }
 
-      //TODO: Criando usuário no banco
-      const user = await prisma.user.create({
-         data: {
-            name,
-            email,
-            password
-         }
-      });
+      try {
+         //TODO: Criando usuário no banco
+         const user = await prisma.user.create({
+            data: {
+               name,
+               email,
+               password
+            }
+         });
 
-      return user;
+         return user;
+      } catch (error) {
+         throw new ServerError("Failed to create user!");
+      }
+   }
+
+   /*
+      TODO: Atualizando usuário
+   */
+   async executeUpdateUser({id,  name, email, password }: ICreateUser) {
+      try {
+         const updatedUser = await prisma.user.update({
+            where: {
+               id
+            },
+            data: {
+               name,
+               email,
+               password
+            }
+         });
+
+         return updatedUser;
+      } catch (error) {
+         throw new ServerError("Failed to update user!");
+      }
    }
 
    /*

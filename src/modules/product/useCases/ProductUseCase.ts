@@ -26,29 +26,33 @@ export class ProductUseCase {
          throw new ServerError("Existing product!");
       }
 
-      //TODO: Criando Produto no banco
-      const product = await prisma.product.create({
-         data: {
-            title,
-            price,
-            description,
-            imageUrl: {
-               create: imageUrl?.map((url) => {
-                  return {
-                     image_url: url,
-                  };
-               }),
+      try {
+         //TODO: Criando Produto no banco
+         const product = await prisma.product.create({
+            data: {
+               title,
+               price,
+               description,
+               imageUrl: {
+                  create: imageUrl?.map((url) => {
+                     return {
+                        image_url: url,
+                     };
+                  }),
+               },
+               category_id,
+               quantity,
+               created_at: today,
             },
-            category_id,
-            quantity,
-            created_at: today,
-         },
-         include: {
-            imageUrl: true,
-         },
-      });
+            include: {
+               imageUrl: true,
+            },
+         });
 
-      return product;
+         return product;
+      } catch (error) {
+         throw new ServerError("Failed to create product!");
+      }
    }
 
    // TODO: Deletando produtos
@@ -88,9 +92,9 @@ export class ProductUseCase {
                quantity,
                category_id,
                imageUrl: {
-                  create: imageUrl?.map((url) => {
+                  create: imageUrl?.map((urlUpdate) => {
                      return {
-                        image_url: url,
+                        image_url: urlUpdate,
                      };
                   }),
                },

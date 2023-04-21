@@ -6,6 +6,7 @@ const categoryController = new CategoryController();
 
 categoryRoutes.post("/", categoryController.handleCreateCategory);
 categoryRoutes.get("/", categoryController.handleReadCategories);
+categoryRoutes.put("/:id", categoryController.handleUpdateCategory);
 categoryRoutes.delete("/:id", categoryController.handleDeleteCategory);
 
 export { categoryRoutes };
