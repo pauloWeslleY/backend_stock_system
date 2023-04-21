@@ -5,7 +5,7 @@ import { ServerError } from "./error/ServerError";
 
 const server = express();
 
-server.listen(8080, () => {
+server.listen(process.env.PORT || 8080, () => {
    console.log("Server is running on port 8080🚀");
 });
 
