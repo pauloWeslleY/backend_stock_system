@@ -88,9 +88,9 @@ export class ProductUseCase {
                quantity,
                category_id,
                imageUrl: {
-                  create: imageUrl?.map((url) => {
+                  create: imageUrl?.map((urlUpdate) => {
                      return {
-                        image_url: url,
+                        image_url: urlUpdate,
                      };
                   }),
                },
