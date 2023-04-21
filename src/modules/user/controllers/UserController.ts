@@ -9,7 +9,7 @@ export class UserController {
    async handleCreateUser(request: Request, response: Response) {
       const createUserBody = z.object({
          name: z.string(),
-         email: z.string(),
+         email: z.string().email(),
          password: z.number(),
       });
 
