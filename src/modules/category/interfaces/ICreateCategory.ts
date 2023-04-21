@@ -1,4 +1,5 @@
 interface ICreateCategory {
+   id?: string;
    name: string;
 }
 

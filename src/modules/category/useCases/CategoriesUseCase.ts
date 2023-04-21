@@ -31,6 +31,24 @@ export class CategoriesUseCase {
       }
    }
 
+   // TODO: Atualizando categorias
+   async executeUpdatedCategory({id, name}: ICreateCategory) {
+      try {
+         const updateCategory = await prisma.categories.update({
+            where: {
+               id
+            },
+            data: {
+               name
+            }
+         });
+
+         return updateCategory;
+      } catch (error) {
+         throw new ServerError("Failed to update category!");
+      }
+   }
+
    // TODO: Deletando categorias
    async executeDeleteCategory({id}: {id: string}) {
       try {

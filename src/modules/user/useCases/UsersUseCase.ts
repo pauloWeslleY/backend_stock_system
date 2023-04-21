@@ -6,18 +6,18 @@ import { ServerError } from "../../../error/ServerError";
 
 export class UsersUseCase {
    async executeCreationUser({ name, email, password }: ICreateUser): Promise<User> {
-      try {
-         // TODO: Validando usuário existente!
-         const userAlreadyExisting = await prisma.user.findUnique({
-            where: {
-               email
-            }
-         });
-
-         if(userAlreadyExisting) {
-            throw new ServerError("Existing User!");
+      // TODO: Validando usuário existente!
+      const userAlreadyExisting = await prisma.user.findUnique({
+         where: {
+            email
          }
+      });
 
+      if(userAlreadyExisting) {
+         throw new ServerError("Existing User!");
+      }
+
+      try {
          //TODO: Criando usuário no banco
          const user = await prisma.user.create({
             data: {
