@@ -41,7 +41,7 @@ export class ProductUseCase {
             },
             category_id,
             quantity,
-            created_at: today
+            created_at: today,
          },
          include: {
             imageUrl: true,
@@ -57,7 +57,7 @@ export class ProductUseCase {
          const deletedProduct = await prisma.product.delete({
             where: {
                id,
-            }
+            },
          });
 
          return deletedProduct;
@@ -66,16 +66,56 @@ export class ProductUseCase {
       }
    }
 
+   // TODO: Atualizando produtos
+   async executeUpdateProduct({
+      id,
+      title,
+      price,
+      description,
+      quantity,
+      category_id,
+      imageUrl,
+   }: ICreateProduct): Promise<Product> {
+      try {
+         const updatedProduct = await prisma.product.update({
+            where: {
+               id,
+            },
+            data: {
+               title,
+               price,
+               description,
+               quantity,
+               category_id,
+               imageUrl: {
+                  create: imageUrl?.map((url) => {
+                     return {
+                        image_url: url,
+                     };
+                  }),
+               },
+            },
+            include: {
+               imageUrl: true,
+            },
+         });
+
+         return updatedProduct;
+      } catch (error) {
+         throw new ServerError("Failed to update this product!");
+      }
+   }
+
    // TODO: Consultando produtos
    async executeReadProduct(): Promise<Product[]> {
       const productsAll = await prisma.product.findMany({
          orderBy: {
-            title: "asc"
+            title: "asc",
          },
          include: {
             imageUrl: true,
-            category: true
-         }
+            category: true,
+         },
       });
 
       return productsAll;

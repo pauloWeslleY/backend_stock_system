@@ -7,6 +7,8 @@ const productController = new ProductController();
 // TODO: Routes
 productRoutes.post("/", productController.handleCreateProduct);
 productRoutes.get("/", productController.handleReadProduct);
+productRoutes.put("/:id", productController.handleUpdateProduct);
 productRoutes.delete("/:id", productController.handleDeleteProduct);
+
 
 export { productRoutes };
