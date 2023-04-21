@@ -14,41 +14,45 @@ export class ProductUseCase {
       category_id,
       imageUrl,
    }: ICreateProduct): Promise<Product> {
-      //TODO: Validando e verificando se o produto já existe no banco
-      const productAlreadyExisting = await prisma.product.findUnique({
-         where: {
-            title,
-         },
-      });
-
-      //TODO: Validação se o produto já é existente no banco
-      if (productAlreadyExisting) {
-         throw new ServerError("Existing product!");
-      }
-
-      //TODO: Criando Produto no banco
-      const product = await prisma.product.create({
-         data: {
-            title,
-            price,
-            description,
-            imageUrl: {
-               create: imageUrl?.map((url) => {
-                  return {
-                     image_url: url,
-                  };
-               }),
+      try {
+         //TODO: Validando e verificando se o produto já existe no banco
+         const productAlreadyExisting = await prisma.product.findUnique({
+            where: {
+               title,
             },
-            category_id,
-            quantity,
-            created_at: today,
-         },
-         include: {
-            imageUrl: true,
-         },
-      });
+         });
 
-      return product;
+         //TODO: Validação se o produto já é existente no banco
+         if (productAlreadyExisting) {
+            throw new ServerError("Existing product!");
+         }
+
+         //TODO: Criando Produto no banco
+         const product = await prisma.product.create({
+            data: {
+               title,
+               price,
+               description,
+               imageUrl: {
+                  create: imageUrl?.map((url) => {
+                     return {
+                        image_url: url,
+                     };
+                  }),
+               },
+               category_id,
+               quantity,
+               created_at: today,
+            },
+            include: {
+               imageUrl: true,
+            },
+         });
+
+         return product;
+      } catch (error) {
+         throw new ServerError("Failed to create product!");
+      }
    }
 
    // TODO: Deletando produtos
