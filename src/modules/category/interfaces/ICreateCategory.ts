@@ -1,6 +1,6 @@
 interface ICreateCategory {
-   id?: string;
-   name: string;
+  id?: string;
+  name: string;
 }
 
 export { ICreateCategory };

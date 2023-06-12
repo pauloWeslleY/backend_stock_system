@@ -10,5 +10,4 @@ productRoutes.get("/", productController.handleReadProduct);
 productRoutes.put("/:id", productController.handleUpdateProduct);
 productRoutes.delete("/:id", productController.handleDeleteProduct);
 
-
 export { productRoutes };
